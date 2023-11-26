@@ -15,47 +15,66 @@
 </head>
 
 <body prefix="schema: http://schema.org/ sa: https://ns.science.ai/">
-    <div class='container'>
-      <article typeof="schema:ScholarlyArticle">
-        <div class="text-center">
-          <h1>Web Developer Companion</h1>
-          <h2>Technical Report</h2>
+  <div class='container'>
+    <article typeof="schema:ScholarlyArticle">
+      <div class="text-center">
+        <h1>Web Developer Companion</h1>
+        <h2>Technical Report</h2>
+      </div>
+
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a href="https://github.com/Vlad-Enia" class="nav-link">Vlad Ieftimie Enia</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://github.com/mirceavlad" class="nav-link">Mircea Vlad Cozmaciuc</a>
+        </li>
+      </ul>
+    </article>
+
+    <!-- 1. Project description -->
+    <br>
+    <div class="row">
+      <section typeof="sa:Description">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">1. Project description</h2>
+            <blockquote>
+              <p>
+                Develop a multi-device (micro-)service-oriented system able to model and manage,
+                in a smart way, public technical content regarding Web development (such as
+                tutorials, presentations, examples of source-code, news, events, etc.) from
+                multiple sources such as DevDocs, GitHub Pages, MDN Web Docs, Reddit, and others.
+                Using the Linked Data principles, the application will generate and expose for
+                human users and software – via a SPARQL endpoint – knowledge of interest for Web
+                developers according to various criteria: topic (e.g., a certain programming
+                language/paradigm, only guides/references about a specific framework), target
+                platform, purpose, geographical area, period of time, user preferences,...
+              </p>
+            </blockquote>
+
+          </div>
         </div>
-  
-        <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a href="https://github.com/Vlad-Enia" class="nav-link">Vlad Ieftimie Enia</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/mirceavlad" class="nav-link">Mircea Vlad Cozmaciuc</a>
-          </li>
-        </ul>
-        </article>
+      </section>
     </div>
 
-    
-      <!-- 1. Project description -->
-      <div class="row mt-2">
-        <section typeof="sa:Description">
-          <div class="card text-bg-light mb-3">
-            <div class="card-body">
-              <h2 class="card-title">1. Project description</h2>
-              <blockquote>
-                <p>
-                    Develop a multi-device (micro-)service-oriented system able to model and manage, 
-                    in a smart way, public technical content regarding Web development (such as 
-                    tutorials, presentations, examples of source-code, news, events, etc.) from 
-                    multiple sources such as DevDocs, GitHub Pages, MDN Web Docs, Reddit, and others. 
-                    Using the Linked Data principles, the application will generate and expose for 
-                    human users and software – via a SPARQL endpoint – knowledge of interest for Web 
-                    developers according to various criteria: topic (e.g., a certain programming 
-                    language/paradigm, only guides/references about a specific framework), target 
-                    platform, purpose, geographical area, period of time, user preferences,...
-                </p>
-              </blockquote>
-
+    <!-- Application Architecture  -->
+    <br>
+    <div class="row mt-2">
+      <section typeof="sa:Arhitecture">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">2. Architecture of the Web Application</h2>
+            <blockquote>
+              <p>High Level Arhitecture</p>
+            </blockquote>
+            <div class="item">
+              <img src="/docs/diagrams/architecture.svg" alt="architecture" style="width:100%;">
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+        <subsection typeof
+      </section>
+    </div>
+  </div>
 </body>
