@@ -65,15 +65,54 @@
         <div class="card text-bg-light mb-3">
           <div class="card-body">
             <h2 class="card-title">2. Architecture of the Web Application</h2>
-            <blockquote>
-              <p>High Level Arhitecture</p>
-            </blockquote>
+            <br>
+            <p>High Level Arhitecture</p>
             <div class="item">
               <img src="/docs/diagrams/architecture.svg" alt="architecture" style="width:100%;">
             </div>
+            <br><br>
+            <section typeof="sa:userService">
+              <div class="card text-bg-light mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">2.1 User Service</h3>
+                  <br>
+                  <p>Used for registering, authenticating and managing users</p>
+                  <div class="item" style="scale: 75%; margin-bottom: -150px;">
+                    <img src="/docs/diagrams/user_service.svg" alt="user_service" style="width:100%;">
+                  </div>
+                </div>
+              </div>
+            </section>
+            <br>
+            <section typeof="sa:preferenceService">
+              <div class="card text-bg-light mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">2.2 Preference Service</h3>
+                  <br>
+                  <p>Used for managing user preferences</p>
+                  <div class="item" style="scale: 75%;">
+                    <img src="/docs/diagrams/preference_service.svg" alt="preference_service" style="width:100%;">
+                  </div>
+                </div>
+              </div>
+            </section>
+            <br>
+            <section typeof="sa:FilterService">
+              <div class="card text-bg-light mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">2.3 Filter Service</h3>
+                  <br>
+                  <p>Filters content based on user preferences. The <b>Preference Manager</b> receives the currently logged in user and the associated preferences. The <b>Result Processing Layer</b> then receives the user preferences from the <b>Preference Manager</b> and, based on them, filters the contents received from the <b>Resource Query Service</b>.</p>
+                  <br><br><br>
+                  <div class="item">
+                    <img src="/docs/diagrams/filter_service.svg" alt="filter_service" style="width:100%;">
+                  </div>
+                  <br>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-        <subsection typeof
       </section>
     </div>
   </div>
