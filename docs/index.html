@@ -102,7 +102,10 @@
                 <div class="card-body">
                   <h3 class="card-title">2.3 Filter Service</h3>
                   <br>
-                  <p>Filters content based on user preferences. The <b>Preference Manager</b> receives the currently logged in user and the associated preferences. The <b>Result Processing Layer</b> then receives the user preferences from the <b>Preference Manager</b> and, based on them, filters the contents received from the <b>Resource Query Service</b>.</p>
+                  <p>Filters content based on user preferences. The <b>Preference Manager</b> receives the currently
+                    logged in user and the associated preferences. The <b>Result Processing Layer</b> then receives the
+                    user preferences from the <b>Preference Manager</b> and, based on them, filters the contents
+                    received from the <b>Resource Query Service</b>.</p>
                   <br><br><br>
                   <div class="item">
                     <img src="/docs/diagrams/filter_service.svg" alt="filter_service" style="width:100%;">
@@ -113,6 +116,172 @@
             </section>
           </div>
         </div>
+      </section>
+    </div>
+    <br>
+    <div class="row">
+      <section typeof="sa:Description">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">3. Frontend Mockup</h2>
+              <img src="./diagrams/main_page.png"/>
+              <img src="./diagrams/preferences_page.png"/>
+
+          </div>
+        </div>
+      </section>
+    </div>
+    <br>
+    <div class="row">
+      <section typeof="sa:External Data Sources">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">4. Linked Data Principles</h2>
+            <blockquote>
+              <p>
+                Linked Data is a set of principles and best practices for structuring, connecting, and exposing data on
+                the web in a way that allows it to be easily linked and interrelated. The core principles include:
+              <ul>
+                <li> Uniform Resource Identifiers (URIs): Every resource should be uniquely identified using a URI.</li>
+                <li>HTTP URIs: URIs should be accessible via HTTP, enabling dereferencing for retrieving resource
+                  representations.</li>
+                <li>Resource Representation: Resources should be represented in a standard format, usually using RDF
+                  (Resource Description Framework). </li>
+                <li>Links Between Resources: Include links in data to connect related resources, enabling navigation and
+                  discovery.</li>
+              </ul>
+              In the context of this project, Linked Data principles are applied to model technical content related to
+              web development.
+              Each piece of content, such as tutorials, examples, and documentation, is represented as a resource with a
+              unique URI.
+              Relationships between resources are established using links, creating a web of interconnected knowledge.
+              </p>
+            </blockquote>
+
+          </div>
+        </div>
+      </section>
+    </div>
+    <br>
+    <div class="row">
+      <section typeof="sa:External Data Sources">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">5. Retrieving Data</h2>
+            <blockquote>
+              <p>
+                We'll use a web scraping service to get the data from the following sources: Reddit, DevDocs, MDN Web
+                Docs, GitHub Pages. <br />
+                We will then process the retrieved data and create RDF triples in accordance with Linked Data
+                principles. <br />
+                These RDF triples will represent the relationships and attributes of the collected data, allowing for
+                seamless integration into our triplestore.
+                Once the RDF triples are prepared, we will load them into the selected triplestore,
+                ensuring that our SPARQL endpoint is populated with the interconnected data. <br />
+              </p>
+            </blockquote>
+
+          </div>
+        </div>
+      </section>
+    </div>
+    <br>
+    <div class="row">
+      <section typeof="sa:External Data Sources">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">6. Ontology</h2>
+            <blockquote>
+              <p>
+
+
+                We'll make use of the following ontology and vocabularies in order to model our business case.
+              <ul>
+                <li>PREFIX schema: https://schema.org/</li>
+                <li>PREFIX rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#</li>
+                <li>PREFIX rdfs: http://www.w3.org/2000/01/rdf-schema#</li>
+                <li>PREFIX xsd: http://www.w3.org/2001/XMLSchema#</li>
+                <li>PREFIX dc: http://purl.org/dc/elements/1.1/</li>
+                <li>PREFIX tl: http://purl.org/NET/c4dm/timeline.owl#</li>
+                <li>PREFIX event: http://purl.org/NET/c4dm/event.owl#</li>
+                <li>PREFIX foaf: http://xmlns.com/foaf/0.1/</li>
+
+              </ul>
+              We will create an ontology that we can use to model the data we collect from the various sources. For example: <br />
+              <pre>
+schema:WebDevelopment rdf:type rdf:Class ;
+    rdfs:label "Web Development" .
+
+schema:Tutorial rdf:type rdf:Class ;
+    rdfs:label "Tutorial" ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:ProgrammingLanguage rdf:type rdf:Class ;
+    rdfs:label "Programming Language" .
+
+    schema:hasTopic rdf:type rdf:Property ;
+    rdfs:label "hasTopic" ;
+    rdfs:domain schema:Tutorial ;
+    rdfs:range schema:ProgrammingLanguage .
+
+schema:fromSource rdf:type rdf:Property ;
+    rdfs:label "fromSource" ;
+    rdfs:domain schema:Tutorial ;
+    rdfs:range schema:WebDevelopment .
+              </pre>
+              </p>
+            </blockquote>
+
+          </div>
+        </div>
+            <br>
+    <div class="row">
+      <section typeof="sa:External Data Sources">
+        <div class="card text-bg-light mb-3">
+          <div class="card-body">
+            <h2 class="card-title">7. Bibliography</h2>
+            <blockquote>
+              <p>
+                <ul>
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/TR/sparql11-protocol/" property="schema:citation" id="sparql-proto">
+                    <cite property="schema:name">
+                      <a href="https://www.w3.org/TR/sparql11-protocol/">The SPARQL 1.1 Protocol</a>
+                    </cite>
+                  </li>
+
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/RDF/" property="schema:citation" id="rdf">
+                    <cite property="schema:name">
+                      <a href="https://www.w3.org/RDF/">RDF (Resource Description Framework) standard model</a>
+                    </cite>
+                  </li>
+
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
+                    <cite property="schema:name">
+                      <a href="https://schema.org/">The schema.org vocabulary</a>
+                    </cite>
+                  </li>
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
+                    <cite property="schema:name">
+                      <a href="https://reddit.com/r/programming/">Reddit Programming Subreddit</a>
+                    </cite>
+                  </li>
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
+                    <cite property="schema:name">
+                      <a href="https://devdocs.io/">Dev Docs</a>
+                    </cite>
+                  </li>
+                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
+                    <cite property="schema:name">
+                      <a href="https://developer.mozilla.org/en-US/">MDN Web Docs</a>
+                    </cite>
+                  </li>
+                  </ul>
+            </blockquote>
+
+          </div>
+        </div>
+      </section>
+    </div>
       </section>
     </div>
   </div>
