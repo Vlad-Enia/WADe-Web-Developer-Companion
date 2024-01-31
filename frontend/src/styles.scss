@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+// @import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  overflow: hidden !important;
+  height: 100%;
+}
+
+main { 
+  height: 100vh;
+}
+
+login {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(244, 246, 248);
+}
+
+@font-face {
+  font-family: 'BentonSansLight';
+  src: url('~src/assets/fonts/56fead03-cbb4-48e8-bc4c-512c795fc3c9-1.ttf');
+}
+
+@font-face {
+  font-family: 'BentonSansRegular';
+  src: url('~src/assets/fonts/b36a47f4-8876-40cb-b31a-d02f16a88d78-1.ttf');
+}
+
+@font-face {
+  font-family: 'BentonSansRE';
+  src: url('~src/assets/fonts/875a9ec0-6d61-465d-a185-c7b6c5cf23bf-1.ttf');
+}
+
+@font-face {
+  font-family: 'BentonSansMedium';
+  src: url('~src/assets/fonts/71592d14-e584-4c00-bbb9-8f1da5b98bf9-1.ttf');
+}
+
+@font-face {
+  font-family: 'BentonSansBold';
+  src: url('~src/assets/fonts/90a77a6d-79fe-4845-96a8-b6dadd7d52a4-1.ttf');
+}

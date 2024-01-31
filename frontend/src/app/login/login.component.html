@@ -1,0 +1,31 @@
+<div class="container-div">
+    <div class="login" style="padding-top: 30px">
+        <div class="row">
+            <div class="col app-title">
+                <label style="width: 100%; text-align: center; font-size: 30px; color: rgb(83 105 127)">{{title}}</label>
+            </div>
+        </div>
+        <div *ngIf="error" class="row login-error-container">
+            <div class="col-sm-12" class="login-error">
+                <span>Access denied</span>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 12px">
+            <div class="col-sm-12">
+                <label for="user" class="col-form-label">Username</label>
+                <input id="user" type="text" [(ngModel)]="username" class="form-control" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="pass" class="col-form-label">Password</label>
+                <input id="pass" type="password" [(ngModel)]="password" class="form-control" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 30px">
+            <div class="col-sm-12">
+                <button style="margin: 0 auto; display: block" (click)="login()" class="btn btn-primary">Sign in</button>
+            </div>
+        </div>
+    </div>
+</div>
