@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent {
 
   title = "WDC";
 
-  constructor( private router: Router) {
+  constructor(private router: Router, private auth: AuthService) {
   }
 
   logout(): void {
