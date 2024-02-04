@@ -7,21 +7,21 @@ import os
 import datetime
 import jwt
 
-from flask_cors import CORS, cross_origin
-app = Flask(__name__)
-cors = CORS(app)
-
-
-os.chdir(r'C:\Users\eniav\Desktop\WADe-Web-Developer-Companion\backend\login')
+os.chdir(r'C:\Users\eniav\Desktop\WADe-Web-Developer-Companion\backend')
 
 with open('config.yaml', 'r') as file:
-    db_config = yaml.safe_load(file)
+    config = yaml.safe_load(file)
 
 try:
-    client = pymongo.MongoClient(db_config['db']['db_url'], server_api=pymongo.server_api.ServerApi(db_config['db']['db_server_api']))
+    client = pymongo.MongoClient(config['db']['db_url'], server_api=pymongo.server_api.ServerApi(config['db']['db_server_api']))
 except pymongo.errors.ConfigurationError:
     print("An Invalid URI host error was received. Is your Atlas host name correct in your connection string?")
     sys.exit(1)
+
+SECRET_KEY="secret"    
+
+db = client.WDC
+user_collection = db['users']
 
 SECRET_KEY="secret"    
 
@@ -72,12 +72,8 @@ def decode_auth_token(auth_token):
         return 'err', 'Signature expired. Please log in again.'
     except jwt.InvalidTokenError:
         return 'err', 'Invalid token. Please log in again.'
-
-@app.route("/login", methods=['POST', 'OPTIONS'])
-def login():
-    if request.method == 'OPTIONS':
-        return _build_cors_preflight_response()
-    else:
+    
+def authenticate(request):
         username = request.args.get('username','')
         password = request.args.get('password','')
         encoded_password = sha256(password.encode('UTF-8')).hexdigest()
@@ -102,35 +98,8 @@ def login():
                 }
                 return make_response(jsonify(responseObject)), 500
             
-@app.route("/main", methods=['GET'])
-def f():
-        # get the auth token
+def is_authorized(request):
         auth_token = request.headers.get('Authorization')
-        app.logger.info('AUTH TOKEN: ' + auth_token)
         if auth_token:
             status, resp = decode_auth_token(auth_token)
-            if status == 'ok':
-                # user = User.query.filter_by(id=resp).first()
-                # responseObject = {
-                #     'status': 'success',
-                #     'data': {
-                #         'user_id': user.id,
-                #         'email': user.email,
-                #         'admin': user.admin,
-                #         'registered_on': user.registered_on
-                #     }
-                # }
-                return make_response(), 200
-            else:
-                responseObject = {
-                    'status': 'fail',
-                    'message': resp
-                }
-                return make_response(jsonify(responseObject)), 401
-        else:
-            responseObject = {
-                'status': 'fail',
-                'message': 'Provide a valid auth token.'
-            }
-            return make_response(jsonify(responseObject)), 401
-
+            return status == 'ok', resp
