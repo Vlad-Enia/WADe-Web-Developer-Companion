@@ -7,6 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './header/header.component';
+import { AuthGuard } from './service/auth.guard';
+import { AuthService } from './service/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './service/auth.interceptor';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,12 +21,22 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     NgbModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

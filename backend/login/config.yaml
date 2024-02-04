@@ -1,0 +1,3 @@
+db:
+  db_url: "mongodb+srv://root:root@wade-wdc.zcntgiv.mongodb.net/?retryWrites=true&w=majority"
+  db_server_api: "1"

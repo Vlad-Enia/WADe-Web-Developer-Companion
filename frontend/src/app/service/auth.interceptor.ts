@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (authorization) {
       request = request.clone({
         setHeaders: {
-          Authorization: `${authorization.token_type} ${authorization.access_token}`
+          Authorization: `${authorization.access_token}`
         }
       })
     }
@@ -28,14 +28,14 @@ export class AuthInterceptor implements HttpInterceptor {
       map((event: HttpEvent<any>) => event),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          if (error.error.error === 'invalid_token') {
-            this.auth.refresh(authorization).subscribe(
-                () => location.reload(),
-                () => this.router.navigate(['login'])
-            );
-          } else {
+          // if (error.error.error === 'invalid_token') {
+          //   this.auth.refresh(authorization).subscribe(
+          //       () => location.reload(),
+          //       () => this.router.navigate(['login'])
+          //   );
+          // } else {
             this.router.navigate(['login']);
-          }
+          // }
         }
         return throwError(error);
       })
