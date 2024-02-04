@@ -46,7 +46,7 @@
                 tutorials, presentations, examples of source-code, news, events, etc.) from
                 multiple sources such as DevDocs, GitHub Pages, MDN Web Docs, Reddit, and others.
                 Using the Linked Data principles, the application will generate and expose for
-                human users and software – via a SPARQL endpoint – knowledge of interest for Web
+                human users and software - via a SPARQL endpoint - knowledge of interest for Web
                 developers according to various criteria: topic (e.g., a certain programming
                 language/paradigm, only guides/references about a specific framework), target
                 platform, purpose, geographical area, period of time, user preferences,...
@@ -83,8 +83,8 @@
                 </div>
               </div>
             </section>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <section typeof="sa:preferenceService">
               <div class="card text-bg-light mb-3">
                 <div class="card-body">
@@ -96,8 +96,8 @@
                   </div>
                 </div>
               </div>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <a href="./preferencesAPI/index.html">Link to OpenAPI</a>
             </section>
             <br>
@@ -123,8 +123,8 @@
                 <div class="card-body">
                   <h3 class="card-title">2.4 Database Structure</h3>
                   <br>
-                  <img src="./diagrams/database.png"/>
-                  
+                  <img src="./diagrams/database.png" />
+
                 </div>
               </div>
             </section>
@@ -138,7 +138,7 @@
         <div class="card text-bg-light mb-3">
           <div class="card-body">
             <h2 class="card-title">3. Use Case Diagram</h2>
-              <img src="./diagrams/C4_diagram.png"/>
+            <img src="./diagrams/C4_diagram.png" />
           </div>
         </div>
       </section>
@@ -150,8 +150,8 @@
         <div class="card text-bg-light mb-3">
           <div class="card-body">
             <h2 class="card-title">4. Frontend Mockup</h2>
-              <img src="./diagrams/main_page.png"/>
-              <img src="./diagrams/preferences_page.png"/>
+            <img src="./diagrams/main_page.png" />
+            <img src="./diagrams/preferences_page.png" />
 
           </div>
         </div>
@@ -196,14 +196,17 @@
             <h2 class="card-title">6. Retrieving Data</h2>
             <blockquote>
               <p>
-                We'll use a web scraping service to get the data from the following sources: Reddit, DevDocs, MDN Web
-                Docs, GitHub Pages. <br />
-                We will then process the retrieved data and create RDF triples in accordance with Linked Data
+                We use a web scraping service to get the data from the following sources: Reddit, MDN Web
+                Docs, GitHub Topics. <br />
+                We then process the retrieved data and create RDF triples in accordance with Linked Data
                 principles. <br />
-                These RDF triples will represent the relationships and attributes of the collected data, allowing for
+                These RDF triples represent the relationships and attributes of the collected data, allowing for
                 seamless integration into our triplestore.
-                Once the RDF triples are prepared, we will load them into the selected triplestore,
+                Once the RDF triples are prepared, we load them into the selected triplestore,
                 ensuring that our SPARQL endpoint is populated with the interconnected data. <br />
+                After that, we can query the SPARQL endpoint to retrieve the data and present it to the user in the
+                frontend of our application.
+
               </p>
             </blockquote>
 
@@ -231,83 +234,140 @@
                 <li>PREFIX tl: http://purl.org/NET/c4dm/timeline.owl#</li>
                 <li>PREFIX event: http://purl.org/NET/c4dm/event.owl#</li>
                 <li>PREFIX foaf: http://xmlns.com/foaf/0.1/</li>
+                <li>PREFIX ns1: http://wade-project.org/news#</li>
 
               </ul>
-              We will create an ontology that we can use to model the data we collect from the various sources. For example: <br />
+              We will create an ontology that we can use to model the data we collect from the various sources. For
+              example: <br />
               <pre>
-schema:WebDevelopment rdf:type rdf:Class ;
-    rdfs:label "Web Development" .
+ns1:NewsItem rdf:type rdf:Class ;
+rdfs:label "News Item" .
 
-schema:Tutorial rdf:type rdf:Class ;
-    rdfs:label "Tutorial" ;
-    rdfs:subClassOf schema:CreativeWork .
+ns1:link rdf:type rdf:Property ;
+    rdfs:label "link" ;
+    rdfs:domain ns1:NewsItem ;
+    rdfs:range schema:URL .
 
-schema:ProgrammingLanguage rdf:type rdf:Class ;
-    rdfs:label "Programming Language" .
+ns1:origin rdf:type rdf:Property ;
+    rdfs:label "origin" ;
+    rdfs:domain ns1:NewsItem ;
+    rdfs:range rdf:Literal .
 
-    schema:hasTopic rdf:type rdf:Property ;
-    rdfs:label "hasTopic" ;
-    rdfs:domain schema:Tutorial ;
-    rdfs:range schema:ProgrammingLanguage .
+ns1:title rdf:type rdf:Property ;
+    rdfs:label "title" ;
+    rdfs:domain ns1:NewsItem ;
+    rdfs:range rdf:Literal .
 
-schema:fromSource rdf:type rdf:Property ;
-    rdfs:label "fromSource" ;
-    rdfs:domain schema:Tutorial ;
-    rdfs:range schema:WebDevelopment .
-              </pre>
+ns1:topic rdf:type rdf:Property ;
+    rdfs:label "topic" ;
+    rdfs:domain ns1:NewsItem ;
+    rdfs:range rdf:Literal .
+
+# Examples:
+ns1:CSS_Nesting rdf:type ns1:NewsItem ;
+    ns1:link <https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting> ;
+    ns1:origin "mozilla" ;
+    ns1:title "CSS nesting" ;
+    ns1:topic "tutorials" .
+
+ns1:DOS_Wasm_X rdf:type ns1:NewsItem ;
+    ns1:link <https://www.neilb.net/doswasmx/> ;
+    ns1:origin "reddit" ;
+    ns1:title "DOS Wasm X: a new web based DOS Emulator" ;
+    ns1:topic "javascript" .
+  </pre>
               </p>
             </blockquote>
 
           </div>
         </div>
-            <br>
-    <div class="row">
-      <section typeof="sa:External Data Sources">
-        <div class="card text-bg-light mb-3">
-          <div class="card-body">
-            <h2 class="card-title">8. Bibliography</h2>
-            <blockquote>
-              <p>
-                <ul>
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/TR/sparql11-protocol/" property="schema:citation" id="sparql-proto">
-                    <cite property="schema:name">
-                      <a href="https://www.w3.org/TR/sparql11-protocol/">The SPARQL 1.1 Protocol</a>
-                    </cite>
-                  </li>
-
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/RDF/" property="schema:citation" id="rdf">
-                    <cite property="schema:name">
-                      <a href="https://www.w3.org/RDF/">RDF (Resource Description Framework) standard model</a>
-                    </cite>
-                  </li>
-
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
-                    <cite property="schema:name">
-                      <a href="https://schema.org/">The schema.org vocabulary</a>
-                    </cite>
-                  </li>
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
-                    <cite property="schema:name">
-                      <a href="https://reddit.com/r/programming/">Reddit Programming Subreddit</a>
-                    </cite>
-                  </li>
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
-                    <cite property="schema:name">
-                      <a href="https://devdocs.io/">Dev Docs</a>
-                    </cite>
-                  </li>
-                  <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/" property="schema:citation" id="schemaorg">
-                    <cite property="schema:name">
-                      <a href="https://developer.mozilla.org/en-US/">MDN Web Docs</a>
-                    </cite>
-                  </li>
+        <br>
+        <div class="row">
+          <section typeof="sa:External Data Sources">
+            <div class="card text-bg-light mb-3">
+              <div class="card-body">
+                <h2 class="card-title">8. User Manual</h2>
+                <blockquote>
+                  <p>
+                    The user is able to login and register using the User Service. <br />
+                    After logging in, the user can access the preferences page, where they can select the topics they
+                    are interested in.
+                  <ul>
+                    <li>Each user has their own preferences, which are stored in the Preference Service and are
+                      used to filter the news items retrieved from the SPARQL endpoint.</li>
+                    <li>Preferences can be changed at any time in order to refresh the feed.</li>
                   </ul>
-            </blockquote>
+                  <br />
+                  When accessing the main page, users can see the latest news regarding the topics and preferences they
+                  have selected.
+                  <ul>
+                    <li>These news are retrieved from the SPARQL endpoint and displayed in the frontend of the
+                      application.</li>
+                    <li>The user can also access the news from the sources they were retrieved from, by clicking on the
+                      link
+                      provided in the news item.</li>
+                  </ul>
 
-          </div>
+                  </p>
+                </blockquote>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
+
+        <div class="row">
+          <section typeof="sa:External Data Sources">
+            <div class="card text-bg-light mb-3">
+              <div class="card-body">
+                <h2 class="card-title">9. Bibliography</h2>
+                <blockquote>
+                  <p>
+                  <ul>
+                    <li typeof="schema:WebPage" role="doc-biblioentry"
+                      resource="https://www.w3.org/TR/sparql11-protocol/" property="schema:citation" id="sparql-proto">
+                      <cite property="schema:name">
+                        <a href="https://www.w3.org/TR/sparql11-protocol/">The SPARQL 1.1 Protocol</a>
+                      </cite>
+                    </li>
+
+                    <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/RDF/"
+                      property="schema:citation" id="rdf">
+                      <cite property="schema:name">
+                        <a href="https://www.w3.org/RDF/">RDF (Resource Description Framework) standard model</a>
+                      </cite>
+                    </li>
+
+                    <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/"
+                      property="schema:citation" id="schemaorg">
+                      <cite property="schema:name">
+                        <a href="https://schema.org/">The schema.org vocabulary</a>
+                      </cite>
+                    </li>
+                    <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/"
+                      property="schema:citation" id="schemaorg">
+                      <cite property="schema:name">
+                        <a href="https://reddit.com/r/programming/">Reddit Programming Subreddit</a>
+                      </cite>
+                    </li>
+                    <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/"
+                      property="schema:citation" id="schemaorg">
+                      <cite property="schema:name">
+                        <a href="https://devdocs.io/">Dev Docs</a>
+                      </cite>
+                    </li>
+                    <li typeof="schema:WebPage" role="doc-biblioentry" resource="https://schema.org/"
+                      property="schema:citation" id="schemaorg">
+                      <cite property="schema:name">
+                        <a href="https://developer.mozilla.org/en-US/">MDN Web Docs</a>
+                      </cite>
+                    </li>
+                  </ul>
+                </blockquote>
+
+              </div>
+            </div>
+          </section>
+        </div>
       </section>
     </div>
   </div>
