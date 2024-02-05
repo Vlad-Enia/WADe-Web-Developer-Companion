@@ -19,7 +19,7 @@ def query_blazegraph(sparql_query):
         return None
 
 
-def build_query(selected_origins):
+def build_query(selected_origins, selected_topics):
     if(selected_origins):
         selected_origins_string = ''
         for origin in selected_origins:
@@ -28,6 +28,16 @@ def build_query(selected_origins):
             else:
                 selected_origins_string += '\"' + origin + '\"' 
         selected_origins_string = '(' + selected_origins_string + ')'
+
+    if(selected_topics):
+        selected_topics_string = ''
+        for topic in selected_topics:
+            if(topic != selected_topics[-1]):
+                selected_topics_string += '\"' + topic + '\", ' 
+            else:
+                selected_topics_string += '\"' + topic + '\"' 
+        selected_topics_string = '(' + selected_topics_string + ')'
+
     
         sparql_query = """
         PREFIX ns: <http://wade-project.org/news#>
@@ -35,18 +45,20 @@ def build_query(selected_origins):
         SELECT ?predicate ?object
         WHERE {{
         GRAPH ?graph {{
-            ?subject ns:origin ?origin .
-            FILTER (?origin IN {origins})
+            ?subject ns:origin ?origin ;
+             ns:topic ?topic .
+            FILTER (?origin IN {origins} && ?topic IN {topics})
             ?subject ?predicate ?object .
         }}
         }}
-        """.format(origins = selected_origins_string)
+        """.format(origins = selected_origins_string, topics = selected_topics_string)
+
         return sparql_query
 
 
 
-def query_by_origins(selected_origins):
-    query = build_query(selected_origins)
+def query_by_origins(selected_origins, selected_topics):
+    query = build_query(selected_origins, selected_topics)
 
     result = query_blazegraph(query)
 

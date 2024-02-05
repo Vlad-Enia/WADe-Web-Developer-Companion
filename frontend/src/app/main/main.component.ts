@@ -30,14 +30,27 @@ export class MainComponent {
     {name: 'github', selected: false},
   ]
 
-  content :any[] = []
+  content : any[] = []
 
   currentTopic = {name: "currentTopic", value: ''};
   
-  existingTopics = []
+  existingTopics : String[] = []
 
   ngOnInit(): void{
     this.getPreferencesForCurrentUser()
+  }
+
+  addTopic(){
+    if(this.currentTopic.value != ''){
+      this.existingTopics.push(this.currentTopic.value);
+      this.currentTopic.value = '';
+    }
+  }
+  
+  removeTopic(topic:String){
+    this.existingTopics = this.existingTopics.filter((el)=>{
+      return el != topic
+    })
   }
 
   getPreferencesForCurrentUser(){
@@ -50,6 +63,7 @@ export class MainComponent {
             }
           })
         }
+        this.existingTopics = response.topics
       }
     })
   }
@@ -60,7 +74,7 @@ export class MainComponent {
       if(source.selected)
         selected_sources.push(source.name)
     }
-    this.http.post<any>(`${environment.backendBaseUrl}/preferences`, {'selected_sources': selected_sources}).subscribe({
+    this.http.post<any>(`${environment.backendBaseUrl}/preferences`, {'selected_sources': selected_sources, 'selected_topics': this.existingTopics}).subscribe({
       next: (response) => {
         this.content = response['items']
         console.log(this.content)

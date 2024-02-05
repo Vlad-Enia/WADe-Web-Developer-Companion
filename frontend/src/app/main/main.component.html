@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container-main">
     <div class="container-preferences">
-        <form (ngSubmit)="submitForm()">
+        <form>
             <div class="form-group">
                 <h5>Data sources</h5>
                 <div *ngFor="let option of dataSources">
@@ -12,13 +12,20 @@
             </div>
             <div class="form-group">
                 <h5>Topics</h5>
-                <input type="text" [(ngModel)]="currentTopic.value" name="currentTopic.name" placeholder="Add topic">
+                <div class="inline">
+                    <input class="text-input" type="text" [(ngModel)]="currentTopic.value" name="currentTopic.name" placeholder="Add topic">
+                    <button (click)="addTopic()">add</button>
+                </div>
+                <button *ngFor="let topic of existingTopics" class="btn btn-primary" (click)="removeTopic(topic)">{{topic}}</button>
             </div>
-            <button type="submit">Submit</button>
+            
+            <div class="form-group">
+                <button type="submit" (click)="submitForm()">Submit</button>
+            </div>
         </form>
     </div>
     <div class="container-content">
-        <ul>
+        <!-- <ul>
         <div *ngFor="let item of content">
             <li><ul>
                 <li>{{item.origin}}</li>
@@ -28,6 +35,13 @@
             </ul></li>
             <br>
         </div>
-        </ul>
+        </ul> -->
+        <div  *ngFor="let item of content">
+            <div class="card" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h5><a href="{{item.link}}" target="_blank">{{item.title}}</a></h5>
+                <span><strong>Origin:</strong> {{item.origin}}</span>
+                <span><strong>Topic:</strong> {{item.topic}}</span>
+            </div>
+        </div>
     </div>
 </div>

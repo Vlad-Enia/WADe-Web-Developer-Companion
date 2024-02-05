@@ -21,8 +21,15 @@ main {
         height: 100vh;
         width: 80%;
         background-color: white;
-        padding-left: 100px;
-        padding-right: 100px;
+        padding-left: 150px;
+        padding-right: 150px;
+        padding-top: 50px;
+        padding-bottom: 100px;
+        overflow-y: auto;
+        span{
+            padding-left:10px
+        }
+
     }
 }
 
@@ -39,4 +46,25 @@ main {
         margin-left:10px;
         margin-bottom: 5px;
     }
+}
+
+.btn-primary{
+    margin-top: 5px;
+}
+
+.text-input{
+    margin-bottom: 15px;
+}
+
+.inline{
+    display: flex;
+    flex-direction: row;
+    button{
+        height: 50%;
+    }
+}
+
+.card{
+    margin-bottom: 30px !important;
+    background-color: rgb(250, 250, 250);
 }
