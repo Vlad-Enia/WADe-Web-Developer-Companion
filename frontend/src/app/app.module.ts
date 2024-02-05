@@ -12,13 +12,18 @@ import { AuthService } from './service/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './service/auth.interceptor';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { PreferencesComponent } from './preferences/preferences.component';
+import { ContentComponent } from './content/content.component';
+import { ContentService } from './service/content.content_service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    PreferencesComponent,
+    ContentComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -35,7 +40,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    ContentService
   ],
   bootstrap: [AppComponent]
 })

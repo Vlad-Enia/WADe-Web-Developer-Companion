@@ -1,2 +1,4 @@
 node_modules
 .venv
+blazegraph.jnl
+combined_rdf_data.rdf

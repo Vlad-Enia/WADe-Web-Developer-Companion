@@ -1,33 +1,10 @@
 from flask import Flask, request, make_response, jsonify, abort
 from hashlib import sha256
-import pymongo
-import yaml
-import sys
-import os
 import datetime
 import jwt
 
-os.chdir(r'C:\Users\eniav\Desktop\WADe-Web-Developer-Companion\backend')
 
-with open('config.yaml', 'r') as file:
-    config = yaml.safe_load(file)
-
-try:
-    client = pymongo.MongoClient(config['db']['db_url'], server_api=pymongo.server_api.ServerApi(config['db']['db_server_api']))
-except pymongo.errors.ConfigurationError:
-    print("An Invalid URI host error was received. Is your Atlas host name correct in your connection string?")
-    sys.exit(1)
-
-SECRET_KEY="secret"    
-
-db = client.WDC
-user_collection = db['users']
-
-SECRET_KEY="secret"    
-
-db = client.WDC
-user_collection = db['users']
-
+SECRET_KEY="secret"   
 
 def _build_cors_preflight_response():
     response = make_response()
@@ -41,13 +18,9 @@ def _corsify_actual_response(response):
     return response
 
 def encode_auth_token(user_id):
-    """
-    Generates the Auth Token
-    :return: string
-    """
     try:
         payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, minutes=5),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, minutes=30),
             'iat': datetime.datetime.utcnow(),
             'sub': user_id
         }
@@ -60,11 +33,6 @@ def encode_auth_token(user_id):
         return e
     
 def decode_auth_token(auth_token):
-    """
-    Decodes the auth token
-    :param auth_token:
-    :return: integer|string
-    """
     try:
         payload = jwt.decode(auth_token, SECRET_KEY, algorithms=["HS256"])
         return 'ok', payload['sub']
@@ -73,11 +41,9 @@ def decode_auth_token(auth_token):
     except jwt.InvalidTokenError:
         return 'err', 'Invalid token. Please log in again.'
     
-def authenticate(request):
-        username = request.args.get('username','')
-        password = request.args.get('password','')
+def authenticate(collection, username, password):
         encoded_password = sha256(password.encode('UTF-8')).hexdigest()
-        user_db = user_collection.find_one({'username': username})
+        user_db = collection.find_one({'username': username})
         if user_db is None or encoded_password != user_db['password']:
             abort(401)
         else:

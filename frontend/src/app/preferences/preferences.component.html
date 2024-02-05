@@ -1,0 +1,15 @@
+<form (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <h5>Data sources</h5>
+        <div *ngFor="let option of dataSources">
+            <label>
+                <input type="checkbox" [(ngModel)]="option.selected" [checked]="option.selected" name="option.name"> {{option.name}} {{option.selected}}
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <h5>Topics</h5>
+        <input type="text" [(ngModel)]="currentTopic.value" name="currentTopic.name" placeholder="Add topic">
+    </div>
+    <button type="submit">Submit</button>
+</form>
