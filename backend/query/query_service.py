@@ -1,12 +1,12 @@
 import requests
 
 def query_blazegraph(sparql_query):
-    blazegraph_endpoint = 'http://localhost:9999/bigdata/sparql'  # Replace with your Blazegraph SPARQL endpoint URL
-    headers = {'Accept': 'application/json'}  # Specify the desired result format
+    blazegraph_endpoint = 'http://localhost:9999/bigdata/sparql'
+    headers = {'Accept': 'application/json'}
 
     params = {
         'query': sparql_query,
-        'format': 'json'  # Specify the desired result format
+        'format': 'json'
     }
 
     response = requests.get(blazegraph_endpoint, params=params, headers=headers)

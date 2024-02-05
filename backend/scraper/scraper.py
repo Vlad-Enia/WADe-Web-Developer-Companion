@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from rdflib import Graph, Literal, URIRef, Namespace
 from urllib.parse import urlparse
-
+from urllib.parse import quote
 def scrape_reddit(url,subreddit):
     response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
 
@@ -16,8 +16,7 @@ def scrape_reddit(url,subreddit):
         for post in soup.find_all('shreddit-post'):
             title = post.get('post-title')
             link = post.get('content-href')
-
-            subject = URIRef(ns + f"post/{title.replace(' ', '_')}")
+            subject = URIRef(ns + f"post/{quote(title).replace(' ', '_')}")
             g.add((subject, ns.title, Literal(title)))
             g.add((subject, ns.link, URIRef(link)))
             g.add((subject, ns.origin, Literal("reddit")))
@@ -46,7 +45,7 @@ def scrape_mozilla(url):
                 title = title_element.text.strip()
                 link = "https://developer.mozilla.org"+link_element.strip()
 
-                subject = URIRef(ns + f"post/{title.replace(' ', '_')}")
+                subject = URIRef(ns + f"post/{quote(title).replace(' ', '_')}")
                 g.add((subject, ns.title, Literal(title)))
                 g.add((subject, ns.link, URIRef(link)))
                 g.add((subject, ns.origin, Literal("mozilla")))
@@ -71,7 +70,7 @@ def scrape_github_topics(url):
             title = repo.text.strip()
             link = 'https://github.com' + repo['href'].strip()
 
-            subject = URIRef(ns + f"post/{title.replace(' ', '_')}")
+            subject = URIRef(ns + f"post/{quote(title).replace(' ', '_')}")
             g.add((subject, ns.title, Literal(title)))
             g.add((subject, ns.link, URIRef(link)))
             g.add((subject, ns.origin, Literal("github")))
