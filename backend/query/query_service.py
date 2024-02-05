@@ -20,6 +20,7 @@ def query_blazegraph(sparql_query):
 
 
 def build_query(selected_origins, selected_topics):
+    
     if(selected_origins):
         selected_origins_string = ''
         for origin in selected_origins:

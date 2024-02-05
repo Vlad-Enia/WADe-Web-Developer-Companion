@@ -20,7 +20,7 @@ def scrape_reddit(url,subreddit):
             g.add((subject, ns.title, Literal(title)))
             g.add((subject, ns.link, URIRef(link)))
             g.add((subject, ns.origin, Literal("reddit")))
-            g.add((subject, ns.topic, Literal(subreddit)))
+            g.add((subject, ns.topic, Literal("subreddit")))
 
         return g
     else:

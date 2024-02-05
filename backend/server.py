@@ -73,11 +73,11 @@ def update_preferences_for_current_user():
             auth_token = request.headers.get('Authorization')
             status, username = decode_auth_token(auth_token)
             selected_sources = request.json['selected_sources']
+            app.logger.info(selected_sources)
             selected_topics = request.json['selected_topics']
             new_preferences = update_preferences_for_user(preference_collection, username, selected_sources, selected_topics)
             if new_preferences:
                 content = query_by_origins(new_preferences['origins'], new_preferences['topics'])
-                app.logger.info(content)
                 return content, 200
             else:
                 return make_response(), 400
